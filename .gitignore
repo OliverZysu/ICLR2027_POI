@@ -1,0 +1,7 @@
+datasets/
+checkpoints/
+logs/
+**/__pycache__/
+*.pyc
+*.pt
+*.npy
