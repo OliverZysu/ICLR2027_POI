@@ -40,18 +40,18 @@ LOG_DIR = ROOT / "logs" / "five_baselines"
 # (short_name, entry_script, result_dirname)
 SUITE_BASELINES: Dict[str, List[Tuple[str, str, str]]] = {
     "new": [
-        ("mtnet", "run_mtnet.py", "MTNet"),
-        ("dchl", "run_dchl.py", "DCHL"),
-        ("ipcm", "run_ipcm.py", "iPCM"),
-        ("k1_poi", "run_k1_poi.py", "K1-POI"),
-        ("sthgcn", "run_sthgcn.py", "STHGCN"),
+        ("mtnet", "baselines/mtnet/run_mtnet.py", "MTNet"),
+        ("dchl", "baselines/dchl/run_dchl.py", "DCHL"),
+        ("ipcm", "baselines/ipcm/run_ipcm.py", "iPCM"),
+        ("k1_poi", "baselines/k1_poi/run_k1_poi.py", "K1-POI"),
+        ("sthgcn", "baselines/sthgcn/run_sthgcn.py", "STHGCN"),
     ],
     "classic": [
-        ("fpmc", "run_fpmc.py", "FPMC"),
-        ("plspl", "run_plspl.py", "PLSPL"),
-        ("stgcn", "run_stgcn.py", "STGCN"),
-        ("stgn", "run_stgn.py", "STGN"),
-        ("strnn", "run_strnn.py", "ST-RNN"),
+        ("fpmc", "baselines/fpmc/run_fpmc.py", "FPMC"),
+        ("plspl", "baselines/plspl/run_plspl.py", "PLSPL"),
+        ("stgcn", "baselines/stgcn/run_stgcn.py", "STGCN"),
+        ("stgn", "baselines/stgn/run_stgn.py", "STGN"),
+        ("strnn", "baselines/strnn/run_strnn.py", "ST-RNN"),
     ],
 }
 CITIES = ("NYC", "TKY")
