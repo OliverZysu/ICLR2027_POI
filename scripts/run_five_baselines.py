@@ -25,6 +25,7 @@ import json
 import os
 import subprocess
 import sys
+import shlex
 import threading
 import time
 import traceback
@@ -205,7 +206,7 @@ def main() -> None:
     baseline_defs = SUITE_BASELINES[args.suite]
     baselines = [x.strip() for x in args.baselines.split(",") if x.strip()] or None
     cities = [x.strip().upper() for x in args.cities.split(",") if x.strip()]
-    extra_args = [tok for tok in args.extra_args.split(" ") if tok]
+    extra_args = shlex.split(args.extra_args)
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     summary_path = LOG_DIR / "summary.txt"
@@ -274,8 +275,8 @@ def main() -> None:
         f"[{_now()}] DONE suite={args.suite} ok={n_ok} fail={n_fail}. See {summary_path}",
         flush=True,
     )
-    # Always exit 0 so one baseline failure does not kill the outer nohup job.
-    sys.exit(0)
+    # Finish all jobs first, then accurately signal any failed or missing job.
+    sys.exit(1 if n_fail or len(results) != len(jobs) else 0)
 
 
 if __name__ == "__main__":

@@ -21,6 +21,7 @@ import json
 import os
 import subprocess
 import sys
+import shlex
 import threading
 import time
 import traceback
@@ -186,7 +187,7 @@ def main() -> None:
         raise SystemExit("No GPUs specified")
     models = [x.strip() for x in args.models.split(",") if x.strip()] or None
     cities = [x.strip().upper() for x in args.cities.split(",") if x.strip()]
-    extra_args = [tok for tok in args.extra_args.split(" ") if tok]
+    extra_args = shlex.split(args.extra_args)
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     summary_path = LOG_DIR / "summary.txt"
@@ -245,7 +246,7 @@ def main() -> None:
         f"[{_now()}] DONE   ok={n_ok} fail={n_fail} total={len(results)} -> {results_json}",
     )
     print(f"[{_now()}] DONE ok={n_ok} fail={n_fail}. See {summary_path}", flush=True)
-    sys.exit(0)
+    sys.exit(1 if n_fail or len(results) != len(jobs) else 0)
 
 
 if __name__ == "__main__":

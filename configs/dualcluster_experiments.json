@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "selection_rule": "4*validation.acc@1+validation.acc@10; never test",
+  "defaults": {
+    "epochs": 30,
+    "patience": 8,
+    "batch": 32,
+    "eval_batch": 32,
+    "lr": 0.001,
+    "protocol": "train_only",
+    "max_len": 50,
+    "min_history": 1,
+    "cluster_seed": 42
+  },
+  "stages": {
+    "pilot": [
+      {
+        "experiment": "original",
+        "variant": "original"
+      },
+      {
+        "experiment": "backbone",
+        "variant": "backbone"
+      },
+      {
+        "experiment": "grounded",
+        "variant": "grounded"
+      },
+      {
+        "experiment": "projected",
+        "variant": "projected"
+      },
+      {
+        "experiment": "hierarchical",
+        "variant": "hierarchical"
+      },
+      {
+        "experiment": "repeat_control",
+        "variant": "repeat_control"
+      },
+      {
+        "experiment": "full",
+        "variant": "full"
+      },
+      {
+        "experiment": "local_ipcm",
+        "baseline": "ipcm"
+      },
+      {
+        "experiment": "local_mtnet",
+        "baseline": "mtnet"
+      },
+      {
+        "experiment": "local_dchl",
+        "baseline": "dchl"
+      }
+    ],
+    "ablation": [
+      {
+        "experiment": "no_pattern",
+        "variant": "no_pattern"
+      },
+      {
+        "experiment": "no_projection",
+        "variant": "no_projection"
+      },
+      {
+        "experiment": "no_hierarchy",
+        "variant": "no_hierarchy"
+      },
+      {
+        "experiment": "no_auxiliary",
+        "variant": "no_auxiliary"
+      },
+      {
+        "experiment": "no_repeat",
+        "variant": "no_repeat"
+      },
+      {
+        "experiment": "no_balance",
+        "variant": "no_balance"
+      },
+      {
+        "experiment": "shuffled_space",
+        "variant": "shuffled_space"
+      }
+    ],
+    "tune": [
+      {
+        "experiment": "full_lr5e4",
+        "variant": "full",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "projected_lr5e4",
+        "variant": "projected",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "full_K16_R32",
+        "variant": "full",
+        "n_pattern": 16,
+        "num_regions": 32
+      },
+      {
+        "experiment": "full_rank8",
+        "variant": "full",
+        "proj_rank": 8
+      }
+    ],
+    "diagnostic": [
+      {
+        "experiment": "original_legacy",
+        "variant": "original",
+        "protocol": "legacy_union"
+      }
+    ],
+    "fair_lr": [
+      {
+        "experiment": "original_lr5e4",
+        "variant": "original",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "original",
+        "variant": "original",
+        "lr": 0.001
+      },
+      {
+        "experiment": "original_lr2e3",
+        "variant": "original",
+        "lr": 0.002
+      },
+      {
+        "experiment": "full_lr5e4",
+        "variant": "full",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "full",
+        "variant": "full",
+        "lr": 0.001
+      },
+      {
+        "experiment": "full_lr2e3",
+        "variant": "full",
+        "lr": 0.002
+      },
+      {
+        "experiment": "projected_lr5e4",
+        "variant": "projected",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "projected",
+        "variant": "projected",
+        "lr": 0.001
+      },
+      {
+        "experiment": "projected_lr2e3",
+        "variant": "projected",
+        "lr": 0.002
+      },
+      {
+        "experiment": "local_ipcm_lr5e4",
+        "baseline": "ipcm",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "local_ipcm",
+        "baseline": "ipcm",
+        "lr": 0.001
+      },
+      {
+        "experiment": "local_ipcm_lr2e3",
+        "baseline": "ipcm",
+        "lr": 0.002
+      },
+      {
+        "experiment": "local_mtnet_lr5e4",
+        "baseline": "mtnet",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "local_mtnet",
+        "baseline": "mtnet",
+        "lr": 0.001
+      },
+      {
+        "experiment": "local_mtnet_lr2e3",
+        "baseline": "mtnet",
+        "lr": 0.002
+      },
+      {
+        "experiment": "local_dchl_lr5e4",
+        "baseline": "dchl",
+        "lr": 0.0005
+      },
+      {
+        "experiment": "local_dchl",
+        "baseline": "dchl",
+        "lr": 0.001
+      },
+      {
+        "experiment": "local_dchl_lr2e3",
+        "baseline": "dchl",
+        "lr": 0.002
+      }
+    ]
+  }
+}

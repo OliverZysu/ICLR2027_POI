@@ -8,6 +8,7 @@ import json
 import os
 import subprocess
 import sys
+import shlex
 import threading
 import time
 import traceback
@@ -124,7 +125,7 @@ def main() -> None:
     gpus = [int(x) for x in args.gpus.split(",") if x.strip() != ""]
     models = [x.strip() for x in args.models.split(",") if x.strip()] or None
     cities = [x.strip().upper() for x in args.cities.split(",") if x.strip()]
-    extra_args = [tok for tok in args.extra_args.split(" ") if tok]
+    extra_args = shlex.split(args.extra_args)
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     summary_path = LOG_DIR / "summary.txt"
@@ -180,7 +181,7 @@ def main() -> None:
     n_fail = sum(1 for r in results if r.returncode != 0)
     _append(summary_path, f"[{_now()}] DONE   ok={n_ok} fail={n_fail} total={len(results)}")
     print(f"[{_now()}] DONE ok={n_ok} fail={n_fail}", flush=True)
-    sys.exit(0)
+    sys.exit(1 if n_fail or len(results) != len(jobs) else 0)
 
 
 if __name__ == "__main__":
